@@ -481,7 +481,6 @@ class _AddTaskState extends State<AddTask> {
                             imageURL.add(value);
                           });
                         }
-
                       });
                     }
                     print("button pressed");

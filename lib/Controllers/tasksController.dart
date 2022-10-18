@@ -28,20 +28,25 @@ class TaskController extends GetxController {
     super.onInit();
   }
 
-  Stream<List<TaskModel>> allTaskStream() {
-    return FirebaseFirestore.instance
-        .collection(userController.companyType.value)
-        .doc('tasks')
-        .collection('tasks')
-        .orderBy('end', descending: false)
-        .snapshots()
-        .map((QuerySnapshot query) {
-      List<TaskModel> retVal = [];
-      for (var element in query.docs) {
-        retVal.add(TaskModel.fromDocumentSnapshot(element));
-      }
-      return retVal;
-    });
+ allTaskStream() {
+    try{
+      return FirebaseFirestore.instance
+          .collection(userController.companyType.value)
+          .doc('tasks')
+          .collection('tasks')
+          .orderBy('end', descending: false)
+          .snapshots()
+          .map((QuerySnapshot query) {
+        List<TaskModel> retVal = [];
+        for (var element in query.docs) {
+          retVal.add(TaskModel.fromDocumentSnapshot(element));
+        }
+        return retVal;
+      });
+    }catch(e){
+      return null;
+    }
+
   }
 
   
